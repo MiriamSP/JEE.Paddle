@@ -25,6 +25,7 @@ public class Token {
     @JoinColumn
     private User user;
 
+    @Column(unique = false, nullable = false)
     private Calendar dateCreated;
 
     public Token() {
