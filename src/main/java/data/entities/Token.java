@@ -1,5 +1,6 @@
 package data.entities;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -22,7 +23,9 @@ public class Token {
     @ManyToOne
     @JoinColumn
     private User user;
-
+    
+    private Calendar dateCreated;
+    
     public Token() {
     }
 
@@ -31,6 +34,7 @@ public class Token {
         this.user = user;
         this.value = new Encrypt().encryptInBase64UrlSafe("" + user.getId() + user.getUsername() + Long.toString(new Date().getTime())
                 + user.getPassword());
+        this.dateCreated = Calendar.getInstance();
     }
 
     public int getId() {
@@ -67,5 +71,22 @@ public class Token {
     @Override
     public String toString() {
         return "Token [id=" + id + ", value=" + value + ", userId=" + user.getId() + "]";
+    }
+
+    public Calendar getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(Calendar dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+    
+    public boolean isTokenExpired(Calendar date){
+     // 3600000 ms en 1 hora
+     // calcular la diferencia en minutos
+        long diffMinutes = (date.getTimeInMillis() - this.dateCreated.getTimeInMillis()) / (60 * 1000);
+        return (diffMinutes > 60);
+    }
+        
     }
 }
