@@ -1,5 +1,6 @@
 package data.entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -23,17 +24,17 @@ public class Token {
     @ManyToOne
     @JoinColumn
     private User user;
-    
+
     private Calendar dateCreated;
-    
+
     public Token() {
     }
 
     public Token(User user) {
         assert user != null;
         this.user = user;
-        this.value = new Encrypt().encryptInBase64UrlSafe("" + user.getId() + user.getUsername() + Long.toString(new Date().getTime())
-                + user.getPassword());
+        this.value = new Encrypt()
+                .encryptInBase64UrlSafe("" + user.getId() + user.getUsername() + Long.toString(new Date().getTime()) + user.getPassword());
         this.dateCreated = Calendar.getInstance();
     }
 
@@ -80,13 +81,12 @@ public class Token {
     public void setDateCreated(Calendar dateCreated) {
         this.dateCreated = dateCreated;
     }
-    
-    public boolean isTokenExpired(Calendar date){
-     // 3600000 ms en 1 hora
-     // calcular la diferencia en minutos
+
+    public boolean isTokenExpired(Calendar date) {
+        // 3600000 ms en 1 hora
+        // calcular la diferencia en minutos
         long diffMinutes = (date.getTimeInMillis() - this.dateCreated.getTimeInMillis()) / (60 * 1000);
         return (diffMinutes > 60);
     }
-        
-    }
+
 }
