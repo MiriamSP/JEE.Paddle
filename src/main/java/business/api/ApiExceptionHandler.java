@@ -13,7 +13,7 @@ import business.api.exceptions.ErrorMessage;
 import business.api.exceptions.InvalidCourtReserveException;
 import business.api.exceptions.InvalidDateException;
 import business.api.exceptions.InvalidUserFieldException;
-import business.api.exceptions.MalformedHeaderException;
+import business.api.exceptions.AuthBasicMalformedHeaderException;
 import business.api.exceptions.UnauthorizedException;
 import business.api.exceptions.NotFoundUserIdException;
 
@@ -36,7 +36,7 @@ public class ApiExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler({MalformedHeaderException.class, InvalidUserFieldException.class, InvalidDateException.class})
+    @ExceptionHandler({AuthBasicMalformedHeaderException.class, InvalidUserFieldException.class, InvalidDateException.class})
     @ResponseBody
     public ErrorMessage badRequest(ApiException exception) {
         ErrorMessage apiErrorMessage = new ErrorMessage(exception);

@@ -59,6 +59,7 @@ public class ReserveResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
+    // activeUser es el usuario de spring (el que he montado)
     public void reserveCourt(@AuthenticationPrincipal User activeUser, @RequestBody AvailableTime availableTime)
             throws InvalidCourtReserveException, InvalidDateException {
         if (!courtController.exist(availableTime.getCourtId())) {

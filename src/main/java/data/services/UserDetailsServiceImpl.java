@@ -32,6 +32,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+        // añadir la validación de que el token no este caducado tb.
         User user = userDao.findByTokenValue(username);
         if (user == null) {
             user = userDao.findByUsernameOrEmail(username);
