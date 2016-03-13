@@ -2,6 +2,6 @@ package data.daos;
 
 public interface TokenDaoExtended {
     
-    public void deleteExpiredToken();
+    public void deleteExpiredTokens();
     
 }

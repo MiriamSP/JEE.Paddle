@@ -31,19 +31,8 @@ public class TokenController {
         this.userDao = userDao;
     }
 
-    // pregunarlos, hacer en los daos
     public void deleteExpiredToken() {
-        /*
-         *   List<Token> lToken = tokenDao.findAllTokens();
-        Calendar dateActual = Calendar.getInstance();
-        for (Token token : lToken) {
-            if (token.isTokenExpired(dateActual)) {
-                tokenDao.delete(token);
-            }
-        }
-         */
-        //TODO
-       // tokenDao.deleteExpiredTokens();
+        tokenDao.deleteExpiredTokens();
     }
 
     public String login(String username) {
