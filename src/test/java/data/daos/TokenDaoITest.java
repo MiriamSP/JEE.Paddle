@@ -39,12 +39,15 @@ public class TokenDaoITest {
         Token token = (Token) daosService.getMap().get("tu1");
         User user = (User) daosService.getMap().get("u4");
         System.out.println("=========================================================================");
+        System.out.println("Num total tokens: " + tokenDao.count());
         Calendar dateAnt  = Calendar.getInstance();
         dateAnt.add(Calendar.MINUTE,-69);
         token.setDateCreated(dateAnt);
+        tokenDao.save(token);
         System.out.println("Estado token: " + token.detailsTokenStatus());
         tokenDao.deleteExpiredTokens();
         //assertEquals(token, tokenDao.findByUser(token.getUser()));
+        System.out.println("Num total tokens: " + tokenDao.count());
         assertNull(tokenDao.findByUser(user));
     }
 
