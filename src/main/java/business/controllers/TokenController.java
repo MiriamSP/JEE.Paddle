@@ -1,8 +1,5 @@
 package business.controllers;
 
-import java.util.Calendar;
-import java.util.List;
-
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +28,7 @@ public class TokenController {
         this.userDao = userDao;
     }
 
-    public void deleteExpiredToken() {
+    public void deleteExpiredTokens() {
         tokenDao.deleteExpiredTokens();
     }
 

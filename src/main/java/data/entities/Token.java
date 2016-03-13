@@ -83,6 +83,12 @@ public class Token {
         this.dateCreated = dateCreated;
     }
 
+    public String detailsTokenStatus() {
+        String time = new SimpleDateFormat("HH:mm dd-MMM-yyyy ").format(dateCreated.getTime());
+        long diffMinutes = 60 - ((Calendar.getInstance().getTimeInMillis() - this.dateCreated.getTimeInMillis()) / (60 * 1000));
+        return "Fecha Creación Token: " + time + " - Quedan " + diffMinutes + " minutos de actividad";
+    }
+
     public boolean isTokenExpired(Calendar date) {
         // 3600000 ms en 1 hora
         // calcular la diferencia en minutos
