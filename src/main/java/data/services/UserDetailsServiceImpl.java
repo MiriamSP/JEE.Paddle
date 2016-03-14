@@ -37,6 +37,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private AuthorizationDao authorizationDao;
 
+    private boolean isTokenValid(User user)  {
+        Token token = tokenDao.findByUser(user);
+        if (token != null) {
+            System.out.println("@@@@@@@@@@@@@@@@Estado token: " + token.detailsTokenStatus());
+
+            if (token.isTokenExpired(Calendar.getInstance())) {
+              
+                return false;
+            }
+        } 
+        return true;
+    }
+
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
         // añadir la validación de que el token no este caducado tb.
@@ -46,24 +59,25 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             if (user == null) {
                 throw new UsernameNotFoundException("Usuario no encontrado");
             } else {
-                return this.userBuilder(user.getUsername(), user.getPassword(), Arrays.asList(Role.AUTHENTICATED));
+                return this.userBuilder(user.getUsername(), user.getPassword(), Arrays.asList(Role.AUTHENTICATED),true);
             }
         } else {
             // Validación de que el token no este caducado
-            Token token = tokenDao.findByUser(user);
-            if (token.isTokenExpired(Calendar.getInstance())) {
-                throw new UsernameNotFoundException("Token caducado");
-            } else {
+            /*
+             * Token token = tokenDao.findByUser(user); if (token != null) { if (token.isTokenExpired(Calendar.getInstance())) { throw new
+             * UsernameNotFoundException("Token caducado"); } }
+             */
                 List<Role> roleList = authorizationDao.findRoleByUser(user);
-                return this.userBuilder(user.getUsername(), new BCryptPasswordEncoder().encode(""), roleList);
-            }
+                return this.userBuilder(user.getUsername(), new BCryptPasswordEncoder().encode(""), roleList, isTokenValid(user));
+            
         }
     }
 
-    private org.springframework.security.core.userdetails.User userBuilder(String username, String password, List<Role> roles) {
+    private org.springframework.security.core.userdetails.User userBuilder(String username, String password, List<Role> roles, boolean isTokenValid) {
         boolean enabled = true;
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;
+        //boolean credentialsNonExpired = isTokenValid;
         boolean accountNonLocked = true;
         List<GrantedAuthority> authorities = new ArrayList<>();
         for (Role role : roles) {
