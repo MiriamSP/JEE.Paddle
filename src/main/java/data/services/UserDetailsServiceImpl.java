@@ -2,6 +2,7 @@ package data.services;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -15,10 +16,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import business.api.exceptions.InvalidTokenException;
 import data.daos.AuthorizationDao;
+import data.daos.TokenDao;
 import data.daos.UserDao;
 import data.entities.Role;
 import data.entities.User;
+import data.entities.Token;
 
 @Service
 @Transactional
@@ -26,6 +30,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private TokenDao tokenDao;
 
     @Autowired
     private AuthorizationDao authorizationDao;
@@ -42,8 +49,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 return this.userBuilder(user.getUsername(), user.getPassword(), Arrays.asList(Role.AUTHENTICATED));
             }
         } else {
-            List<Role> roleList = authorizationDao.findRoleByUser(user);
-            return this.userBuilder(user.getUsername(), new BCryptPasswordEncoder().encode(""), roleList);
+            // Validación de que el token no este caducado
+            Token token = tokenDao.findByUser(user);
+            if (token.isTokenExpired(Calendar.getInstance())) {
+                throw new UsernameNotFoundException("Token caducado");
+            } else {
+                List<Role> roleList = authorizationDao.findRoleByUser(user);
+                return this.userBuilder(user.getUsername(), new BCryptPasswordEncoder().encode(""), roleList);
+            }
         }
     }
 
@@ -56,7 +69,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         for (Role role : roles) {
             authorities.add(new SimpleGrantedAuthority(role.roleName()));
         }
-        return new org.springframework.security.core.userdetails.User(username, password, enabled, accountNonExpired,
-                credentialsNonExpired, accountNonLocked, authorities);
+        return new org.springframework.security.core.userdetails.User(username, password, enabled, accountNonExpired, credentialsNonExpired,
+                accountNonLocked, authorities);
     }
 }
