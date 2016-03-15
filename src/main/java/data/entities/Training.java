@@ -29,9 +29,13 @@ public class Training {
 
     private List<User> students;
 
-    private Calendar startDate;
+    private Calendar date;
 
-    private Calendar finishDate;
+    public Training(Court court, User user, Calendar date) {
+        this.court = court;
+        this.user = user;
+        this.date = date;
+    }
 
     public int getId() {
         return id;
@@ -65,25 +69,16 @@ public class Training {
         this.students = students;
     }
 
-    public Calendar getStartDate() {
-        return startDate;
+    public Calendar getDate() {
+        return date;
     }
 
-    public void setStartDate(Calendar startDate) {
-        this.startDate = startDate;
-    }
-
-    public Calendar getFinishDate() {
-        return finishDate;
-    }
-
-    public void setFinishDate(Calendar finishDate) {
-        this.finishDate = finishDate;
+    public void setDate(Calendar date) {
+        this.date = date;
     }
 
     @Override
     public String toString() {
-        return "Training [id=" + id + ", court=" + court + ", user=" + user + ", students=" + students + ", startDate=" + startDate
-                + ", finishDate=" + finishDate + "]";
-    }
+        return "Training [id=" + id + ", court=" + court + ", students=" + students + ", date=" + date + "]";
+    }   
 }
