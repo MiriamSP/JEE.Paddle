@@ -1,11 +1,8 @@
 package data.entities;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -27,7 +24,7 @@ public class Training {
     @JoinColumn
     private User user;
 
-    private List<User> students;
+    //private List<User> students;
 
     private Calendar date;
 
@@ -36,6 +33,10 @@ public class Training {
         this.user = user;
         this.date = date;
     }
+    
+    public Training() {
+    }
+
 
     public int getId() {
         return id;
@@ -60,6 +61,7 @@ public class Training {
     public void setUser(User user) {
         this.user = user;
     }
+    /*
 
     public List<User> getStudents() {
         return students;
@@ -68,6 +70,7 @@ public class Training {
     public void setStudents(List<User> students) {
         this.students = students;
     }
+    */
 
     public Calendar getDate() {
         return date;
@@ -79,6 +82,8 @@ public class Training {
 
     @Override
     public String toString() {
-        return "Training [id=" + id + ", court=" + court + ", students=" + students + ", date=" + date + "]";
-    }   
+        return "Training [id=" + id + ", court=" + court + ", user=" + user + ", date=" + date + "]";
+    }
+
+      
 }
