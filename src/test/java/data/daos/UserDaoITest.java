@@ -40,9 +40,9 @@ public class UserDaoITest {
 
     @Test
     public void testFindByTokenValue() {
-        User u1 = (User) daosService.getMap().get("u1");
-        Token t1 = (Token) daosService.getMap().get("tu1");
-        assertEquals(u1, userDao.findByTokenValue(t1.getValue()));
+        User u2 = (User) daosService.getMap().get("u2");
+        Token t2 = (Token) daosService.getMap().get("tu2");
+        assertEquals(u2, userDao.findByTokenValue(t2.getValue()));
         assertNull(userDao.findByTokenValue("kk"));
     }
 }
