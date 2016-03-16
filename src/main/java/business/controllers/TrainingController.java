@@ -11,9 +11,12 @@ import org.springframework.stereotype.Controller;
 
 import data.daos.CourtDao;
 import data.daos.ReserveDao;
+import data.daos.TrainingDao;
 import data.daos.UserDao;
 import data.entities.Court;
 import data.entities.Reserve;
+import data.entities.Training;
+import data.entities.User;
 import business.wrapper.Availability;
 
 @Controller
@@ -24,11 +27,22 @@ public class TrainingController {
 
     private static final int END_TIME = 23;
 
+    private TrainingDao trainingDao;
+
     private ReserveDao reserveDao;
 
     private CourtDao courtDao;
 
     private UserDao userDao;
+
+    public TrainingDao getTrainingDao() {
+        return trainingDao;
+    }
+
+    @Autowired
+    public void setTrainingDao(TrainingDao trainingDao) {
+        this.trainingDao = trainingDao;
+    }
 
     @Autowired
     public void setReserveDao(ReserveDao reserveDao) {
@@ -43,6 +57,26 @@ public class TrainingController {
     @Autowired
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
+    }
+
+    public boolean createTraining(int courtId, String trainer, Calendar startDate) {
+        //TODO DAO
+         return trainingDao.createTraining(courtId, trainer, startDate);
+    }
+    
+    public boolean deleteTraining(int trainingId) {
+        //TODO DAO
+         return trainingDao.deleteTraining(trainingId);
+    }
+    
+    public boolean addTrainingPlayer(int trainingId, String student) {
+        //TODO DAO
+         return trainingDao.addTrainingPlayer(trainingId, student);
+    }
+    
+    public boolean deleteTrainingPlayer(int trainingId, String student) {
+        //TODO DAO
+         return trainingDao.deleteTrainingPlayer(trainingId, student);
     }
 
     public Availability showCourtAvailability(Calendar calendarDay) {

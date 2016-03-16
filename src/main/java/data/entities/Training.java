@@ -65,8 +65,7 @@ public class Training {
     public void setUser(User user) {
         this.user = user;
     }
-    /*
-
+    
     public List<User> getStudents() {
         return students;
     }
@@ -74,7 +73,7 @@ public class Training {
     public void setStudents(List<User> students) {
         this.students = students;
     }
-    */
+    
 
     public Calendar getDate() {
         return date;

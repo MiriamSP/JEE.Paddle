@@ -8,7 +8,7 @@ import data.entities.Court;
 import data.entities.User;
 import data.entities.Training;
 
-public interface TrainingDao extends JpaRepository<Training, Integer> {
+public interface TrainingDao extends JpaRepository<Training, Integer> , TrainingDaoExtended {
 
     Training findByCourtAndDate(Court court, Calendar date);
 
