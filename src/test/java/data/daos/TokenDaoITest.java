@@ -2,6 +2,7 @@ package data.daos;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
 
@@ -22,6 +23,9 @@ public class TokenDaoITest {
 
     @Autowired
     private TokenDao tokenDao;
+    
+    @Autowired
+    private UserDao userDao;
 
     @Autowired
     private DaosService daosService;
@@ -36,6 +40,21 @@ public class TokenDaoITest {
     
     @Test
     public void testDeleteExpiredTokens() {
+        User user = new User("u", "u@gmail.com", "p", Calendar.getInstance());
+        userDao.saveAndFlush(user);
+        Token token = new Token(user);
+        tokenDao.saveAndFlush(token);
+        Calendar dateAnt  = Calendar.getInstance();
+        assertTrue(!token.isTokenExpired(dateAnt) );
+        dateAnt.add(Calendar.MINUTE,-69);
+        token.setDateCreated(dateAnt);
+        tokenDao.saveAndFlush(token);
+        tokenDao.deleteExpiredTokens();
+        assertNull(tokenDao.findByUser(user));       
+    }
+    
+    @Test
+    public void testDeleteExpiredTokensOld() {
         Token token = (Token) daosService.getMap().get("tu1");
         User user = (User) daosService.getMap().get("u4");
         System.out.println("=========================================================================");
