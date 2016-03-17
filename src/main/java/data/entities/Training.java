@@ -1,5 +1,6 @@
 package data.entities;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -25,17 +26,18 @@ public class Training {
     // Trainer
     @ManyToOne
     @JoinColumn
-    private User user;
+    private User trainer;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<User> students;
+    private ArrayList<User> students;
 
     private Calendar date;
 
     public Training(Court court, User user, Calendar date) {
         this.court = court;
-        this.user = user;
+        this.trainer = user;
         this.date = date;
+        this.students = new ArrayList<User>(4);
     }
 
     public Training() {
@@ -58,18 +60,18 @@ public class Training {
     }
 
     public User getUser() {
-        return user;
+        return trainer;
     }
 
     public void setUser(User user) {
-        this.user = user;
+        this.trainer = user;
     }
 
     public List<User> getStudents() {
         return students;
     }
 
-    public void setStudents(List<User> students) {
+    public void setStudents(ArrayList<User> students) {
         this.students = students;
     }
 
@@ -107,7 +109,7 @@ public class Training {
 
     @Override
     public String toString() {
-        return "Training [id=" + id + ", court=" + court + ", user=" + user + ", date=" + date + "]";
+        return "Training [id=" + id + ", court=" + court + ", user=" + trainer + ", date=" + date + "]";
     }
 
 }
