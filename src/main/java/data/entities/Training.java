@@ -37,10 +37,9 @@ public class Training {
         this.user = user;
         this.date = date;
     }
-    
+
     public Training() {
     }
-
 
     public int getId() {
         return id;
@@ -65,7 +64,7 @@ public class Training {
     public void setUser(User user) {
         this.user = user;
     }
-    
+
     public List<User> getStudents() {
         return students;
     }
@@ -73,7 +72,30 @@ public class Training {
     public void setStudents(List<User> students) {
         this.students = students;
     }
-    
+
+    public int numStudents() {
+        return this.students.size();
+    }
+
+    public boolean setStudent(User student) {
+        // TODO dejar en entity?
+        if (!students.contains(student) && numStudents() < 4) {
+            this.students.add(student);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean deleteStudent(User student) {
+        // TODO dejar en entity?
+        if (!students.contains(student)) {
+            return false;
+        } else {
+            this.students.remove(student);
+            return true;
+        }
+    }
 
     public Calendar getDate() {
         return date;
@@ -88,5 +110,4 @@ public class Training {
         return "Training [id=" + id + ", court=" + court + ", user=" + user + ", date=" + date + "]";
     }
 
-      
 }
