@@ -37,7 +37,7 @@ public class Training {
         this.court = court;
         this.user = user;
         this.date = date;
-        //this.students = new List<User>(4);
+        this.students = new ArrayList<User>(4);
     }
 
     public Training() {
@@ -109,7 +109,9 @@ public class Training {
 
     @Override
     public String toString() {
-        return "Training [id=" + id + ", court=" + court + ", user=" + user + ", date=" + date + "]";
+        return "Training [id=" + id + ", court=" + court + ", user=" + user + ", students=" + students + ", date=" + date + "]";
     }
+    
+    
 
 }

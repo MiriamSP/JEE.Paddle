@@ -27,6 +27,7 @@ public class TrainingTest {
         User user = new User("trainer", "trainer@gmail.com", "p", Calendar.getInstance());
         Court court = new Court();
         Training training = new Training(court, user, Calendar.getInstance());
+        training.toString();
         User student = new User("student", "student@gmail.com", "p", Calendar.getInstance());
         assertTrue(training.getUser().getId() == user.getId());
         training.setStudent(student);

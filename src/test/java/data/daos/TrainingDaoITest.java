@@ -16,6 +16,7 @@ import config.PersistenceConfig;
 import config.TestsPersistenceConfig;
 import data.entities.Court;
 import data.entities.User;
+import data.entities.Training;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {PersistenceConfig.class, TestsPersistenceConfig.class})
@@ -38,7 +39,6 @@ public class TrainingDaoITest {
 
     @Test
     public void testFindAnyTraining() {
-        // trainingDao.findOne(1).getCourt()
         assertNotNull(trainingDao.findOne(1));
     }
 
@@ -61,18 +61,33 @@ public class TrainingDaoITest {
         date.set(Calendar.MILLISECOND, 0);
         assertNotNull(trainingDao.findByUserAndDate(user, date));
     }
-    
+
     @Test
     public void testFindByCourtAndDate() {
-        //Court court = courtDao.findOne(1);
-        //assertEquals(1, court.getId());
-        /*
+        Court court = courtDao.findOne(1);
+        assertEquals(1, court.getId());
         Calendar date = Calendar.getInstance();
         date.add(Calendar.DAY_OF_YEAR, 1);
         date.set(Calendar.HOUR_OF_DAY, 9);
         date.set(Calendar.MINUTE, 0);
         date.set(Calendar.SECOND, 0);
         date.set(Calendar.MILLISECOND, 0);
-        assertNotNull(trainingDao.findByUserAndDate(user, date));*/
+        assertNotNull(trainingDao.findByCourtAndDate(court, date));
+    }
+
+    @Test
+    public void testDeleteTraining() {
+        assertEquals(2, trainingDao.count());
+        Court court = courtDao.findOne(2);
+        assertEquals(2, court.getId());
+        Calendar date = Calendar.getInstance();
+        date.add(Calendar.DAY_OF_YEAR, 1);
+        date.set(Calendar.HOUR_OF_DAY, 9);
+        date.set(Calendar.MINUTE, 0);
+        date.set(Calendar.SECOND, 0);
+        date.set(Calendar.MILLISECOND, 0);
+        trainingDao.deleteTraining(court.getId(), date);
+        trainingDao.flush();
+        assertEquals(1, trainingDao.count());
     }
 }
