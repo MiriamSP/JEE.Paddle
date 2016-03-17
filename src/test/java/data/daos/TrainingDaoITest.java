@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import config.PersistenceConfig;
 import config.TestsPersistenceConfig;
+import data.entities.Court;
 import data.entities.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -59,5 +60,19 @@ public class TrainingDaoITest {
         date.set(Calendar.SECOND, 0);
         date.set(Calendar.MILLISECOND, 0);
         assertNotNull(trainingDao.findByUserAndDate(user, date));
+    }
+    
+    @Test
+    public void testFindByCourtAndDate() {
+        //Court court = courtDao.findOne(1);
+        //assertEquals(1, court.getId());
+        /*
+        Calendar date = Calendar.getInstance();
+        date.add(Calendar.DAY_OF_YEAR, 1);
+        date.set(Calendar.HOUR_OF_DAY, 9);
+        date.set(Calendar.MINUTE, 0);
+        date.set(Calendar.SECOND, 0);
+        date.set(Calendar.MILLISECOND, 0);
+        assertNotNull(trainingDao.findByUserAndDate(user, date));*/
     }
 }

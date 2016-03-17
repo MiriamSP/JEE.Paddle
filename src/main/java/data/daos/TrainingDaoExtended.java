@@ -6,6 +6,8 @@ public interface TrainingDaoExtended {
 
     boolean createTraining(int courtId, String trainer, Calendar startDate);
     
+    boolean deleteTraining(int courtId,  Calendar startDate);
+
     boolean deleteTraining(int trainingId);
     
     boolean addTrainingPlayer(int trainingId, String student);

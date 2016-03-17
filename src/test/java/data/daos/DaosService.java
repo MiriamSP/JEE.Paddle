@@ -66,7 +66,7 @@ public class DaosService {
         date.set(Calendar.MINUTE, 0);
         date.set(Calendar.SECOND, 0);
         date.set(Calendar.MILLISECOND, 0);
-        createTraining(courtDao.getOne(1),users[0],date);
+        //createTraining(courtDao.getOne(1),users[0],date);
 
         for (int i = 0; i < 4; i++) {
             date.add(Calendar.HOUR_OF_DAY, 1);
@@ -101,13 +101,13 @@ public class DaosService {
             courtDao.save(new Court(id + initial));
         }
     }
-    
+    /*
     public void createTraining(Court court, User trainer, Calendar startDate) {
         Training training = new Training (court,trainer,startDate);
         //training.setStudents(students);
         trainingDao.save(training);
     }
-
+*/
     public Map<String, Object> getMap() {
         return map;
     }

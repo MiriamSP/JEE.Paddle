@@ -42,11 +42,26 @@ public class TrainingDaoImpl implements TrainingDaoExtended {
         } else
             return false;
     }
+    
 
     @Override
     public boolean deleteTraining(int trainingId) {
         // TODO Auto-generated method stub
         return false;
+    }
+
+
+    @Override
+    public boolean deleteTraining(int courtId, Calendar startDate) {
+        // TODO Auto-generated method stub
+        Court court = courtDao.findOne(courtId);
+        Training training = trainingDao.findByCourtAndDate(court, startDate);
+        if (training != null) {
+            trainingDao.delete(training);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
