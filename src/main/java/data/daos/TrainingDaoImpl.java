@@ -63,15 +63,43 @@ public class TrainingDaoImpl implements TrainingDaoExtended {
     }
 
     @Override
-    public boolean addTrainingPlayer(int trainingId, String student) {
+    public boolean addTrainingPlayer(int courtId, Calendar startDate, String student) {
         // TODO Auto-generated method stub
-        return false;
+        Court court = courtDao.findOne(courtId);
+        Training training = trainingDao.findByCourtAndDate(court, startDate);
+        if (training != null) {
+            User user = userDao.findByUsernameOrEmail(student);
+            if (user != null) {
+                training.setStudent(user);
+                System.out.println("aqui: "+ student + " - num student: " + training.numStudents() + " - students: "+ user.toString());
+                trainingDao.saveAndFlush(training);
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 
     @Override
-    public boolean deleteTrainingPlayer(int trainingId, String student) {
+    public boolean deleteTrainingPlayer(int courtId, Calendar startDate, String student) {
         // TODO Auto-generated method stub
-        return false;
+        Court court = courtDao.findOne(courtId);
+        Training training = trainingDao.findByCourtAndDate(court, startDate);
+        if (training != null) {
+            User user = userDao.findByUsernameOrEmail(student);
+            if (user != null) {
+                training.deleteStudent(user);
+                System.out.println("aqui: "+ student + " - num student: " + training.numStudents() + " - students: "+ user.toString());
+                trainingDao.saveAndFlush(training);
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 
 }

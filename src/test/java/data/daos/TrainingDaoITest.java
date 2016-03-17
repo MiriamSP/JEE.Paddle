@@ -90,4 +90,39 @@ public class TrainingDaoITest {
         trainingDao.flush();
         assertEquals(1, trainingDao.count());
     }
+    
+    @Test
+    public void testAddTrainingPlayer(){
+        Court court = courtDao.findOne(1);
+        assertEquals(1, court.getId());
+        Calendar date = Calendar.getInstance();
+        date.add(Calendar.DAY_OF_YEAR, 1);
+        date.set(Calendar.HOUR_OF_DAY, 9);
+        date.set(Calendar.MINUTE, 0);
+        date.set(Calendar.SECOND, 0);
+        date.set(Calendar.MILLISECOND, 0);
+        String student = "u0";
+        int courtId = court.getId();
+        trainingDao.addTrainingPlayer(courtId, date, student);
+        Training training = trainingDao.findByCourtAndDate(court, date);
+        assertEquals(1, training.numStudents());
+    }
+    
+    @Test
+    public void testDeleteTrainingPlayer(){
+        Court court = courtDao.findOne(1);
+        assertEquals(1, court.getId());
+        Calendar date = Calendar.getInstance();
+        date.add(Calendar.DAY_OF_YEAR, 1);
+        date.set(Calendar.HOUR_OF_DAY, 9);
+        date.set(Calendar.MINUTE, 0);
+        date.set(Calendar.SECOND, 0);
+        date.set(Calendar.MILLISECOND, 0);
+        Training training = trainingDao.findByCourtAndDate(court, date);
+        String student = "u0";
+        int courtId = court.getId();
+        trainingDao.deleteTrainingPlayer(courtId, date, student);
+        training = trainingDao.findByCourtAndDate(court, date);
+        assertEquals(0, training.numStudents());
+    }
 }

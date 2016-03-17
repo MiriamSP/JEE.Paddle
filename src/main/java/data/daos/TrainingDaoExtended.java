@@ -10,8 +10,8 @@ public interface TrainingDaoExtended {
 
     boolean deleteTraining(int trainingId);
     
-    boolean addTrainingPlayer(int trainingId, String student);
+    boolean addTrainingPlayer(int courtId, Calendar startDate, String student);
     
-    boolean deleteTrainingPlayer(int trainingId, String student);
+    boolean deleteTrainingPlayer(int courtId, Calendar startDate, String student);
 
 }

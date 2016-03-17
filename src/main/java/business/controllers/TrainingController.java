@@ -60,23 +60,23 @@ public class TrainingController {
     }
 
     public boolean createTraining(int courtId, String trainer, Calendar startDate) {
-        //TODO DAO
-         return trainingDao.createTraining(courtId, trainer, startDate);
+        // TODO DAO
+        return trainingDao.createTraining(courtId, trainer, startDate);
     }
-    
+
     public boolean deleteTraining(int trainingId) {
-        //TODO DAO
-         return trainingDao.deleteTraining(trainingId);
+        // TODO DAO
+        return trainingDao.deleteTraining(trainingId);
     }
-    
-    public boolean addTrainingPlayer(int trainingId, String student) {
-        //TODO DAO
-         return trainingDao.addTrainingPlayer(trainingId, student);
+
+    public boolean addTrainingPlayer(int courtId, Calendar startDate, String student) {
+        // TODO DAO
+        return trainingDao.addTrainingPlayer(courtId, startDate, student);
     }
-    
-    public boolean deleteTrainingPlayer(int trainingId, String student) {
-        //TODO DAO
-         return trainingDao.deleteTrainingPlayer(trainingId, student);
+
+    public boolean deleteTrainingPlayer(int courtId, Calendar startDate, String student) {
+        // TODO DAO
+        return trainingDao.deleteTrainingPlayer(courtId, startDate, student);
     }
 
     public Availability showCourtAvailability(Calendar calendarDay) {
