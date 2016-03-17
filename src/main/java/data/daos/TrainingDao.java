@@ -1,6 +1,7 @@
 package data.daos;
 
 import java.util.Calendar;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -17,4 +18,7 @@ public interface TrainingDao extends JpaRepository<Training, Integer> , Training
     Training findByUserAndDate(User user, Calendar date);
 
     Training findByCourtAndUser(Court court, User user);
+    
+    List<Training> findByDateBetween(Calendar date1, Calendar date2);
+
 }

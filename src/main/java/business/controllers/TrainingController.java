@@ -18,6 +18,7 @@ import data.entities.Reserve;
 import data.entities.Training;
 import data.entities.User;
 import business.wrapper.Availability;
+import business.wrapper.TimetableTraining;
 
 @Controller
 public class TrainingController {
@@ -79,6 +80,44 @@ public class TrainingController {
         return trainingDao.deleteTrainingPlayer(courtId, startDate, student);
     }
 
+    public  void showTrainingsPrint() {
+        // TODO DAO
+        List<Training> lTraining = trainingDao.findAll();
+        for (Training training : lTraining) {
+            System.out.print("COURT: " + training.getCourt().getId());
+            System.out.print("- TRAINER: " + training.getUser().getUsername());
+            System.out.print("- DATE: " + training.getDate());
+            System.out.println("- NUM STUDENTS: " + training.numStudents());
+        }
+
+        
+    }
+    
+    public TimetableTraining showTrainings(Calendar calendarDay) {
+        Calendar endDay = (Calendar) calendarDay.clone();
+        endDay.add(Calendar.DAY_OF_MONTH, 1);
+        List<Court> courtList = courtDao.findAll();
+        Map<Integer, List<Integer>> allTimes = new HashMap<>();
+
+        int initialHour = START_TIME;
+        if (Calendar.getInstance().get(Calendar.YEAR) == calendarDay.get(Calendar.YEAR)
+                && Calendar.getInstance().get(Calendar.DAY_OF_YEAR) == calendarDay.get(Calendar.DAY_OF_YEAR)) {
+            initialHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        }
+        for (Court court : courtList) {
+            List<Integer> hourList = new ArrayList<>();
+            for (int hour = initialHour; hour <= END_TIME; hour++) {
+                hourList.add(hour);
+            }
+            allTimes.put(court.getId(), hourList);
+        }
+        List<Training> lTraining = trainingDao.findByDateBetween(calendarDay, endDay);
+        for (Training training : lTraining) {
+            allTimes.get(training.getCourt().getId()).remove(new Integer(training.getDate().get(Calendar.HOUR_OF_DAY)));
+        }
+        return new TimetableTraining(calendarDay, allTimes);
+    }
+    
     public Availability showCourtAvailability(Calendar calendarDay) {
         Calendar endDay = (Calendar) calendarDay.clone();
         endDay.add(Calendar.DAY_OF_MONTH, 1);

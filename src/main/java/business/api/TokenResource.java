@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import business.controllers.TokenController;
 import business.wrapper.TokenWrapper;
+import data.daos.TokenDao;
 
 @RestController
 @RequestMapping(Uris.SERVLET_MAP + Uris.TOKENS)
@@ -24,6 +25,11 @@ public class TokenResource {
     @RequestMapping(method = RequestMethod.POST)
     public TokenWrapper login(@AuthenticationPrincipal User activeUser) {
         return new TokenWrapper(tokenController.login(activeUser.getUsername()));
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE)
+    public void deleteToken() {
+        tokenController.deleteExpiredTokens();
     }
 
 }
