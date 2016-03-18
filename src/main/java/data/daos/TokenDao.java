@@ -12,8 +12,11 @@ public interface TokenDao extends JpaRepository<Token, Integer>, TokenDaoExtende
 
     List<Token> findByUser(User user);
     
-    @Query("select token.value from Token token where token.value = ?1")
+    @Query("select token from Token token where token.value = ?1")
      public Token findByTokenValue(String tokenValue);
+    
+    @Query("select token from Token token where token.id = ?1")
+    public Token findByTokenValue2(String id);
     
     
 
