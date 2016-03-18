@@ -29,8 +29,9 @@ public class UserDaoImpl implements UserDaoExtended {
             // busco el usuario
             User user = userDao.findByTokenValue(tokenValue);
             return user;
-        } else
+        } else {
             return null;
+        }
 
     }
 }

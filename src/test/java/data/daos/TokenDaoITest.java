@@ -54,8 +54,7 @@ public class TokenDaoITest {
         assertEquals(5, tokenDao.count());
         tokenDao.deleteExpiredTokens();
         assertEquals(4, tokenDao.count());
-    }
-    
+    }  
     
 
 }
