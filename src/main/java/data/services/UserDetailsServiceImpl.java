@@ -37,6 +37,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private AuthorizationDao authorizationDao;
 
+    /*
     private boolean isTokenValid(User user)  {
         Token token = tokenDao.findByUser(user);
         if (token != null) {
@@ -48,32 +49,59 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             }
         } 
         return true;
-    }
+    }*/
 
+    /*
     @Override
-    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(final String usernameOrEmailOrTokenValue) throws UsernameNotFoundException {
+        //TODO  añadir la validación de que el token no este caducado tb.
+        //Hacer clase Impl Exteded y llevar a la capa dao
         // añadir la validación de que el token no este caducado tb.
-        User user = userDao.findByTokenValue(username);
+        // buscar un usuario VALIDANDO QUE EL TOKEN NO ESTE CADUCADO 
+        // hacer implementacion por usuario. findByValidTokenValue NO CADUCADO
+       
+        // User user = userDao.findByTokenValue(usernameOrEmailOrTokenValue);
+        User user = userDao.findByValidTokenValue(usernameOrEmailOrTokenValue);
+       System.out.println("@@@@@@@@@@@@@@@@ aqui usuario: " + user.toString());
         if (user == null) {
-            user = userDao.findByUsernameOrEmail(username);
+            user = userDao.findByUsernameOrEmail(usernameOrEmailOrTokenValue);
+            //user = userDao.findByValidTokenValue(usernameOrEmailOrTokenValue);
             if (user == null) {
                 throw new UsernameNotFoundException("Usuario no encontrado");
             } else {
-                return this.userBuilder(user.getUsername(), user.getPassword(), Arrays.asList(Role.AUTHENTICATED),true);
+                return this.userBuilder(user.getUsername(), user.getPassword(), Arrays.asList(Role.AUTHENTICATED));
             }
         } else {
             // Validación de que el token no este caducado
             /*
              * Token token = tokenDao.findByUser(user); if (token != null) { if (token.isTokenExpired(Calendar.getInstance())) { throw new
              * UsernameNotFoundException("Token caducado"); } }
-             */
-                List<Role> roleList = authorizationDao.findRoleByUser(user);
-                return this.userBuilder(user.getUsername(), new BCryptPasswordEncoder().encode(""), roleList, isTokenValid(user));
             
+                List<Role> roleList = authorizationDao.findRoleByUser(user);
+                return this.userBuilder(user.getUsername(), new BCryptPasswordEncoder().encode(""), roleList);            
+        } 
+    }
+    */
+        
+    @Override
+    public UserDetails loadUserByUsername(final String usernameOrEmailOrTokenValue) throws UsernameNotFoundException {
+        // buscar usuario por valor token valido
+        User user = userDao.findByValidTokenValue(usernameOrEmailOrTokenValue);
+        if (user != null) {
+            System.out.println("@@@@@@@@@@@@@@@@ aqui usuario: " + user.toString());
+            List<Role> roleList = authorizationDao.findRoleByUser(user);
+            return this.userBuilder(user.getUsername(), new BCryptPasswordEncoder().encode(""), roleList);
+        } else {
+            user = userDao.findByUsernameOrEmail(usernameOrEmailOrTokenValue);
+            if (user != null) {
+                return this.userBuilder(user.getUsername(), user.getPassword(), Arrays.asList(Role.AUTHENTICATED));
+            } else {
+                throw new UsernameNotFoundException("Usuario no encontrado");
+            }
         }
     }
 
-    private org.springframework.security.core.userdetails.User userBuilder(String username, String password, List<Role> roles, boolean isTokenValid) {
+    private org.springframework.security.core.userdetails.User userBuilder(String username, String password, List<Role> roles) {
         boolean enabled = true;
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;

@@ -34,14 +34,16 @@ public class TokenDaoITest {
     public void testFindByUser() {
         Token token = (Token) daosService.getMap().get("tu1");
         User user = (User) daosService.getMap().get("u4");
-        assertEquals(token, tokenDao.findByUser(token.getUser()));
-        assertNull(tokenDao.findByUser(user));
+        Token token2 = tokenDao.findByUser(token.getUser()).get(0);
+        assertEquals(token, token2);
+        //assertNull(tokenDao.findByUser(user));
     }
     
     @Test
     public void testDeleteExpiredTokens() {
         User user = new User("u", "u@gmail.com", "p", Calendar.getInstance());
         userDao.saveAndFlush(user);
+        assertEquals(4, tokenDao.count());
         Token token = new Token(user);
         tokenDao.saveAndFlush(token);
         Calendar dateAnt  = Calendar.getInstance();
@@ -49,25 +51,11 @@ public class TokenDaoITest {
         dateAnt.add(Calendar.MINUTE,-69);
         token.setDateCreated(dateAnt);
         tokenDao.saveAndFlush(token);
+        assertEquals(5, tokenDao.count());
         tokenDao.deleteExpiredTokens();
-        assertNull(tokenDao.findByUser(user));       
+        assertEquals(4, tokenDao.count());
     }
     
-    @Test
-    public void testDeleteExpiredTokensOld() {
-        Token token = (Token) daosService.getMap().get("tu1");
-        User user = (User) daosService.getMap().get("u4");
-        System.out.println("=========================================================================");
-        System.out.println("Num total tokens: " + tokenDao.count());
-        Calendar dateAnt  = Calendar.getInstance();
-        dateAnt.add(Calendar.MINUTE,-69);
-        token.setDateCreated(dateAnt);
-        tokenDao.save(token);
-        System.out.println("Estado token: " + token.detailsTokenStatus());
-        tokenDao.deleteExpiredTokens();
-        //assertEquals(token, tokenDao.findByUser(token.getUser()));
-        System.out.println("Num total tokens: " + tokenDao.count());
-        assertNull(tokenDao.findByUser(user));
-    }
+    
 
 }
