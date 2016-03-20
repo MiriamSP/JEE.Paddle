@@ -37,66 +37,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private AuthorizationDao authorizationDao;
 
-    /*
-    private boolean isTokenValid(User user)  {
-        Token token = tokenDao.findByUser(user);
-        if (token != null) {
-            System.out.println("@@@@@@@@@@@@@@@@Estado token: " + token.detailsTokenStatus());
-
-            if (token.isTokenExpired(Calendar.getInstance())) {
-              
-                return false;
-            }
-        } 
-        return true;
-    }*/
-
-    /*
     @Override
     public UserDetails loadUserByUsername(final String usernameOrEmailOrTokenValue) throws UsernameNotFoundException {
-        //TODO  añadir la validación de que el token no este caducado tb.
-        //Hacer clase Impl Exteded y llevar a la capa dao
-        // añadir la validación de que el token no este caducado tb.
-        // buscar un usuario VALIDANDO QUE EL TOKEN NO ESTE CADUCADO 
-        // hacer implementacion por usuario. findByValidTokenValue NO CADUCADO
-       
-        // User user = userDao.findByTokenValue(usernameOrEmailOrTokenValue);
         User user = userDao.findByValidTokenValue(usernameOrEmailOrTokenValue);
-       System.out.println("@@@@@@@@@@@@@@@@ aqui usuario: " + user.toString());
-        if (user == null) {
-            user = userDao.findByUsernameOrEmail(usernameOrEmailOrTokenValue);
-            //user = userDao.findByValidTokenValue(usernameOrEmailOrTokenValue);
-            if (user == null) {
-                throw new UsernameNotFoundException("Usuario no encontrado");
-            } else {
-                return this.userBuilder(user.getUsername(), user.getPassword(), Arrays.asList(Role.AUTHENTICATED));
-            }
-        } else {
-            // Validación de que el token no este caducado
-            /*
-             * Token token = tokenDao.findByUser(user); if (token != null) { if (token.isTokenExpired(Calendar.getInstance())) { throw new
-             * UsernameNotFoundException("Token caducado"); } }
-            
-                List<Role> roleList = authorizationDao.findRoleByUser(user);
-                return this.userBuilder(user.getUsername(), new BCryptPasswordEncoder().encode(""), roleList);            
-        } 
-    }
-    */
-        
-    @Override
-    public UserDetails loadUserByUsername(final String usernameOrEmailOrTokenValue) throws UsernameNotFoundException {
-        // buscar usuario por valor token valido
-        //User user = userDao.findByValidTokenValue(usernameOrEmailOrTokenValue);
-        System.out.println("@@@@@@@@@@@@@@@@ aqui usuario1: " + usernameOrEmailOrTokenValue);
-        User user = userDao.findByValidTokenValue(usernameOrEmailOrTokenValue);
-        //User user = userDao.findByTokenValue(usernameOrEmailOrTokenValue);
         if (user != null) {
-            System.out.println("@@@@@@@@@@@@@@@@ aqui usuario2: " + user.toString());
             List<Role> roleList = authorizationDao.findRoleByUser(user);
             return this.userBuilder(user.getUsername(), new BCryptPasswordEncoder().encode(""), roleList);
         } else {
-            System.out.println("@@@@@@@@@@@@@@@@ aqui usuario3: " + usernameOrEmailOrTokenValue);
-
             user = userDao.findByUsernameOrEmail(usernameOrEmailOrTokenValue);
             if (user != null) {
                 return this.userBuilder(user.getUsername(), user.getPassword(), Arrays.asList(Role.AUTHENTICATED));
@@ -110,7 +57,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         boolean enabled = true;
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;
-        //boolean credentialsNonExpired = isTokenValid;
         boolean accountNonLocked = true;
         List<GrantedAuthority> authorities = new ArrayList<>();
         for (Role role : roles) {
