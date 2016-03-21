@@ -20,7 +20,7 @@ public class Uris {
     
     public static final String AVAILABILITY = "/availability";
     
-    public static final String TRAINING = "/training";
+    public static final String TRAININGS = "/trainings";
 
 
 }

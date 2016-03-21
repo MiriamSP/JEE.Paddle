@@ -18,7 +18,9 @@ import data.entities.Reserve;
 import data.entities.Training;
 import data.entities.User;
 import business.wrapper.Availability;
+import business.wrapper.CourtState;
 import business.wrapper.TimetableTraining;
+import business.wrapper.TrainingWrapper;
 
 @Controller
 public class TrainingController {
@@ -80,6 +82,14 @@ public class TrainingController {
         return trainingDao.deleteTrainingPlayer(courtId, startDate, student);
     }
 
+    public List<TrainingWrapper> showTrainings() {
+        List<TrainingWrapper> lTrainingWrapper = new ArrayList<>();
+        for (Training training : trainingDao.findAll()) {
+            lTrainingWrapper.add(new TrainingWrapper(training));
+        }
+        return lTrainingWrapper;
+    }
+    
     public  void showTrainingsPrint() {
         // TODO DAO
         List<Training> lTraining = trainingDao.findAll();
