@@ -45,7 +45,7 @@ public class Presenter {
     @ModelAttribute("now")
     public String now() {
         return new SimpleDateFormat("EEEE, d MMM yyyy HH:mm:ss").format(new Date());
-    }
+    } 
 
     @RequestMapping("/home")
     public String home(Model model) {
