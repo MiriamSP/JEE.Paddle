@@ -52,23 +52,16 @@ public class TrainingResourceFunctionalTesting {
     
     @Test
     public void testTraining() {
-        CourtState court = new CourtState(11,true);
-        //CourtState court = restService.createCourt("1");
         String token = restService.loginAdmin();
         Calendar day = Calendar.getInstance();
         day.add(Calendar.DAY_OF_YEAR, 1);
         day.set(Calendar.HOUR_OF_DAY,12);
-        // int courtId, String trainer, Calendar date
+        CourtState court = new CourtState(11,true);
         UserWrapper trainer = new UserWrapper("trainer01", "trainer01@mail", "123456", Calendar.getInstance());
         List<Integer> lStudents = null;
         TrainingWrapper training = new TrainingWrapper(court.getCourtId(),trainer.getUsername(), lStudents, day); 
-        
-       
         new RestBuilder<Object>(RestService.URL).path(Uris.TRAININGS).basicAuth(token, "").body(training).post().build();
         assertEquals(1, 1);
-        
-        
-       
     }
 
     @After

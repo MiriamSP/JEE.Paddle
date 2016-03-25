@@ -15,6 +15,13 @@ public class TokenResourceFunctionalTesting {
         LogManager.getLogger(this.getClass()).info("testLoginPlayer (token:" + token + ")");
     }
     
+    @Test
+    public void testDeleteExpiredToken() {
+        String token = new RestService().registerAndLoginPlayer();
+        assertTrue(token.length() > 20);
+        LogManager.getLogger(this.getClass()).info("testExpiredToken (token:" + token + ")");
+    }
+    
     @After
     public void deleteAll() {
         new RestService().deleteAll();

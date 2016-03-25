@@ -28,7 +28,7 @@ public class TokenResource {
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    public void deleteToken() {
+    public void deleteExpiredToken() {
         tokenController.deleteExpiredTokens();
     }
 

@@ -75,7 +75,6 @@ public class ReserveResource {
         this.validateDay(date);
         if (!reserveController.reserveCourt(availableTime.getCourtId(), date, activeUser.getUsername())) {
             throw new InvalidCourtReserveException(availableTime.getCourtId() + "-" + availableTime.getTime());
-
         }
     }
 }
