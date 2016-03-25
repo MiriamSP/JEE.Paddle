@@ -9,54 +9,62 @@ import data.entities.User;
 
 public class TrainingWrapper {
 
-    private Court court;
+    private int courtId;
 
-    private User user;
+    private String username;
 
-    private List<User> students;
+    private List<Integer> students;
 
     private Calendar date;
 
     public TrainingWrapper() {
 
     }
-
-    public TrainingWrapper(Court court, User user, List<User> students, Calendar date) {
-        super();
-        this.setCourt(court);
-        this.setUser(user);
-        this.setStudents(students);
-        this.setDate(date);
-    }
     
+    
+
+    public TrainingWrapper(int courtId, String username, List<Integer> students, Calendar date) {
+        super();
+        this.courtId = courtId;
+        this.username = username;
+        this.students = students;
+        this.date = date;
+    }
+
+
+
     public TrainingWrapper(Training training) {
-        this.setCourt(training.getCourt());
-        this.setUser(training.getUser());
-        this.setStudents(training.getStudents());
-        this.setDate(training.getDate());
+        this.setCourtId(training.getCourt().getId());
+        this.setUsername(training.getUser().getUsername());
+        for (User user : training.getStudents()) {
+            this.students.add(user.getId());
+        }
+        this.date = training.getDate();
     }
 
-    public Court getCourt() {
-        return court;
+    public int getCourtId() {
+        return courtId;
     }
 
-    public void setCourt(Court court) {
-        this.court = court;
+    public void setCourtId(int courtId) {
+        this.courtId = courtId;
     }
 
-    public User getUser() {
-        return user;
+    
+
+    public String getUsername() {
+        return username;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public List<User> getStudents() {
+    public List<Integer> getStudents() {
         return students;
     }
 
-    public void setStudents(List<User> students) {
+    public void setStudents(List<Integer> students) {
         this.students = students;
     }
 
@@ -66,11 +74,6 @@ public class TrainingWrapper {
 
     public void setDate(Calendar date) {
         this.date = date;
-    }
-
-    @Override
-    public String toString() {
-        return "TrainingWrapper [court=" + court + ", user=" + user + ", students=" + students + ", date=" + date + "]";
     }
 
 }
