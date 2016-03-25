@@ -25,10 +25,15 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
+import business.controllers.CourtController;
+
 @Controller
 @Scope(WebApplicationContext.SCOPE_SESSION)
 @SessionAttributes("name")
 public class Presenter {
+    
+    @Autowired
+    private CourtController courtController;
 
     private static final List<String> THEMES = Arrays.asList("jsp", "bootstrap", "thymeleaf");
 
@@ -59,6 +64,12 @@ public class Presenter {
         this.theme = theme;
         return new ModelAndView(theme + "/home", "themes", THEMES);
     }
+    
+    @RequestMapping("/create-court")
+    public ModelAndView createCourt(@RequestParam String theme) {
+        this.theme = theme;
+        return new ModelAndView(theme + "/home", "themes", THEMES);
+    }
 
     @RequestMapping(value = "/greeting")
     public String greeting(@CookieValue("JSESSIONID") Cookie cookie, HttpServletRequest request, Model model) {
@@ -69,6 +80,11 @@ public class Presenter {
     }
 
    
+    @RequestMapping("/court-list")
+    public String listCourts(Model model){
+        model.addAttribute("courtsList", courtController.showCourts());
+        return "jsp/courtList";
+    }
 
    
 

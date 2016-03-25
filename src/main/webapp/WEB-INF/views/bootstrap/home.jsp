@@ -92,11 +92,11 @@
 					alt="Second slide">
 				<div class="container">
 					<div class="carousel-caption">
-						<h1>Listar usuarios</h1>
-						<p>Muestra una tabla con la lista completa de usuarios</p>
+						<h1>Listar pista</h1>
+						<p>Muestra una tabla con la lista completa de pistas</p>
 						<p>
 							<a class="btn btn-lg btn-primary"
-								href="<c:url value="/user-list"/>" role="button">Probar</a>
+								href="<c:url value="/court-list"/>" role="button">Probar</a>
 						</p>
 					</div>
 				</div>
@@ -107,11 +107,11 @@
 					alt="Third slide">
 				<div class="container">
 					<div class="carousel-caption">
-						<h1>Crear usuario</h1>
-						<p>Saca un formulario para crear un nuevo usuario</p>
+						<h1>Crear Pista</h1>
+						<p>Saca un formulario para crear una pista</p>
 						<p>
 							<a class="btn btn-lg btn-primary"
-								href="<c:url value="/create-user"/>" role="button">probar</a>
+								href="<c:url value="/create-court"/>" role="button">probar</a>
 						</p>
 					</div>
 				</div>
