@@ -9,11 +9,18 @@ import org.springframework.stereotype.Controller;
 import business.wrapper.CourtState;
 import data.daos.CourtDao;
 import data.entities.Court;
+import data.services.CourtService;
 
 @Controller
 public class CourtController {
 
     private CourtDao courtDao;
+    
+    public CourtService getCourtService() {
+        return courtService;
+    }
+
+    private CourtService courtService;
 
     @Autowired
     public void setCourtDao(CourtDao courtDao) {

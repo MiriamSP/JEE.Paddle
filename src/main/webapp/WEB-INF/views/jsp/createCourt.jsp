@@ -19,6 +19,7 @@
 			<form:errors path="active" cssClass="error" />
 		</p>
 		<p><input type="submit" value="Crear"></p>
+		${court.id}
 	</form:form>
 
 	<a href="<c:url value="/home"/>">Home</a>
