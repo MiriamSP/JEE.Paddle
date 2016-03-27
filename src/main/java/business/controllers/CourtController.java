@@ -47,6 +47,10 @@ public class CourtController {
         }
         return courtStateList;
     }
+    
+    public int nextCourtId(){
+        return (int)courtDao.count()+1;
+    }
 
     public boolean exist(int courtId) {
         return courtDao.findOne(courtId) != null;

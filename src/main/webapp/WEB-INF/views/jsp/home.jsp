@@ -18,7 +18,7 @@
 	<h3>Ejercicios:</h3>
 	<p><a href="<c:url value='/greeting'/>">- Empezar</a></p>
 	<p><a href="<c:url value='/court-list'/>">- Lista de pistas</a></p>
-	<p><a href="<c:url value='/create-user'/>">- Crear un usuario</a></p>
+	<p><a href="<c:url value='/create-court'/>">- Crear una pista</a></p>
 
 	<p>UPM-MIW --- ${now}</p>
 </body>

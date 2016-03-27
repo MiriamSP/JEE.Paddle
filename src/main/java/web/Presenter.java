@@ -26,6 +26,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
 
 import business.controllers.CourtController;
+import business.wrapper.CourtState;
 
 @Controller
 @Scope(WebApplicationContext.SCOPE_SESSION)
@@ -66,10 +67,12 @@ public class Presenter {
     }
     
     @RequestMapping("/create-court")
-    public ModelAndView createCourt(@RequestParam String theme) {
+    public ModelAndView createCourtmsp(@RequestParam String theme) {
         this.theme = theme;
         return new ModelAndView(theme + "/home", "themes", THEMES);
     }
+    
+   
 
     @RequestMapping(value = "/greeting")
     public String greeting(@CookieValue("JSESSIONID") Cookie cookie, HttpServletRequest request, Model model) {
@@ -84,6 +87,12 @@ public class Presenter {
     public String listCourts(Model model){
         model.addAttribute("courtsList", courtController.showCourts());
         return "jsp/courtList";
+    }
+    
+    @RequestMapping(value ="/create-court", method = RequestMethod.GET)
+    public String createCourt(Model model){
+        model.addAttribute("court", new CourtState(courtController.nextCourtId(), true));
+        return "jsp/createCourt";
     }
 
    
