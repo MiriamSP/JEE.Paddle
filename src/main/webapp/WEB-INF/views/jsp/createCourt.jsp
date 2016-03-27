@@ -11,15 +11,14 @@
 	<h1>Crear una pista</h1>
 	<form:form action="create-court" modelAttribute="court">
 		<p>Id:
-			<form:input path="id" placeholder="Id" required="required" />
-			<form:errors path="id" cssClass="error"/>
+			<form:input path="courtId" placeholder="Id" required="required" />
+			<form:errors path="courtId" cssClass="error"/>
 		</p>
 		<p>Active:
 			<form:input path="active" placeholder="Active" required="required" />
 			<form:errors path="active" cssClass="error" />
 		</p>
 		<p><input type="submit" value="Crear"></p>
-		${court.id}
 	</form:form>
 
 	<a href="<c:url value="/home"/>">Home</a>

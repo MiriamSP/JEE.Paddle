@@ -16,12 +16,6 @@ public class CourtController {
 
     private CourtDao courtDao;
     
-    public CourtService getCourtService() {
-        return courtService;
-    }
-
-    private CourtService courtService;
-
     @Autowired
     public void setCourtDao(CourtDao courtDao) {
         this.courtDao = courtDao;

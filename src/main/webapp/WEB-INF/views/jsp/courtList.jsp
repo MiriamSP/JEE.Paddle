@@ -21,9 +21,9 @@
 		<tbody>
 			<c:forEach items="${courtList}" var="court">
 				<tr>
-					<td>${court.id}</td>
+					<td>${court.courtId}</td>
 					<td>${court.active}</td>
-					<td><a href="<c:url value='/delete-court/${court.id}' />">delete</a></td>
+					<td><a href="<c:url value='/delete-court/${court.courtId}' />">delete</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

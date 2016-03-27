@@ -10,7 +10,7 @@
 <body>
 	<H1>Creación de pista correcta</H1>
 
-	<h3>La pista (${court.id}) ha sido creada satisfactoriamente</h3>
+	<h3>La pista (${court.courtId}) ha sido creada satisfactoriamente</h3>
 
 	<p><a href="<c:url value='/court-list' />">Ir a Lista de Pistas</a></p>
 
