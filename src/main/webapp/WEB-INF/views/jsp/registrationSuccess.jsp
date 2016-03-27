@@ -8,11 +8,11 @@
 </head>
 
 <body>
-	<H1>Creación de usuario correcto</H1>
+	<H1>Creación de pista correcta</H1>
 
-	<h3>El usuario (${user}) ha sido creado satisfactoriamente</h3>
+	<h3>La pista (${court.id}) ha sido creada satisfactoriamente</h3>
 
-	<p><a href="<c:url value='/user-list' />">Ir a Lista de Usuario</a></p>
+	<p><a href="<c:url value='/court-list' />">Ir a Lista de Pistas</a></p>
 
 	<p>UPM-MIW --- ${now}</p>
 

@@ -11,8 +11,8 @@
 	<h1>Crear una pista</h1>
 	<form:form action="create-court" modelAttribute="court">
 		<p>Id:
-			<form:input path="courtId" placeholder="Id" required="required" />
-			<form:errors path="courtId" cssClass="error"/>
+			<form:input path="id" placeholder="Id" required="required" />
+			<form:errors path="id" cssClass="error"/>
 		</p>
 		<p>Active:
 			<form:input path="active" placeholder="Active" required="required" />
