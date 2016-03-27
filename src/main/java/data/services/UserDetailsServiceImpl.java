@@ -2,7 +2,6 @@ package data.services;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -16,13 +15,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import business.api.exceptions.InvalidTokenException;
 import data.daos.AuthorizationDao;
 import data.daos.TokenDao;
 import data.daos.UserDao;
 import data.entities.Role;
 import data.entities.User;
-import data.entities.Token;
 
 @Service
 @Transactional

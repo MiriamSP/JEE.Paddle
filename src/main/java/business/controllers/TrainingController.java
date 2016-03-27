@@ -16,9 +16,7 @@ import data.daos.UserDao;
 import data.entities.Court;
 import data.entities.Reserve;
 import data.entities.Training;
-import data.entities.User;
 import business.wrapper.Availability;
-import business.wrapper.CourtState;
 import business.wrapper.TimetableTraining;
 import business.wrapper.TrainingWrapper;
 

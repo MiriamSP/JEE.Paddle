@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import business.controllers.TokenController;
 import business.wrapper.TokenWrapper;
-import data.daos.TokenDao;
 
 @RestController
 @RequestMapping(Uris.SERVLET_MAP + Uris.TOKENS)

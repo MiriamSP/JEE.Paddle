@@ -2,13 +2,8 @@ package data.entities;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
 import org.junit.Test;
-
-import data.entities.Token;
 import data.entities.User;
 
 public class TrainingTest {

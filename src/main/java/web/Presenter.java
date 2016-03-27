@@ -40,9 +40,6 @@ public class Presenter {
 
     private static final String themeChoose = "jsp";
 
-    @Autowired
-    private ServletContext servletContext;
-
     private String theme = THEMES.get(0);
 
     public Presenter() {

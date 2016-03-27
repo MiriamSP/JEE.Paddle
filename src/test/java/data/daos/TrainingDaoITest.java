@@ -2,7 +2,6 @@ package data.daos;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 import java.util.Calendar;
 
@@ -27,10 +26,7 @@ public class TrainingDaoITest {
 
     @Autowired
     private TrainingDao trainingDao;
-
-    @Autowired
-    private ReserveDao reserveDao;
-
+    
     @Autowired
     private UserDao userDao;
 

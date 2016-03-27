@@ -6,19 +6,14 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
 import org.junit.After;
 import org.junit.Test;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import business.api.Uris;
 import business.wrapper.AvailableTime;
 import business.wrapper.CourtState;
 import business.wrapper.TrainingWrapper;
 import business.wrapper.UserWrapper;
-import data.entities.Court;
 
 public class TrainingResourceFunctionalTesting {
 
@@ -36,7 +31,6 @@ public class TrainingResourceFunctionalTesting {
         assertEquals(COURTS, list.size());
     }
     
-    // public void reserveCourt(@AuthenticationPrincipal User activeUser, @RequestBody AvailableTime availableTime)
     @Test
     public void testReserveCourt() {
         restService.createCourt("1");

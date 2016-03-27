@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import business.wrapper.CourtState;
 import data.daos.CourtDao;
 import data.entities.Court;
-import data.services.CourtService;
 
 @Controller
 public class CourtController {
