@@ -1,5 +1,6 @@
 package data.entities;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import java.util.Calendar;
 import org.junit.Test;
@@ -12,13 +13,11 @@ public class TokenTest {
     public void testTokenUser() {
         User user = new User("u", "u@gmail.com", "p", Calendar.getInstance());
         Token token = new Token(user);
-        assertTrue(token.getValue().length() > 20);
-        // Test Date Expired        
+        assertFalse(token.isTokenExpired());
         Calendar date = Calendar.getInstance();
-        date.add(Calendar.MINUTE,59);
-        assertTrue(!token.isTokenExpired(date));
+        date.add(Calendar.MINUTE, -61);
+        token.setDateCreated(date);
+        assertTrue(token.isTokenExpired());
     }
-    
-    
 
 }

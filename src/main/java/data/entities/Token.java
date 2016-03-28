@@ -89,11 +89,8 @@ public class Token {
         return "Fecha Creación Token: " + time + " - Quedan " + diffMinutes + " minutos de actividad";
     }
 
-    public boolean isTokenExpired(Calendar date) {
-        // 3600000 ms en 1 hora
-        // calcular la diferencia en minutos
-        long diffMinutes = (date.getTimeInMillis() - this.dateCreated.getTimeInMillis()) / (60 * 1000);
-        return (diffMinutes > 60);
+    public boolean isTokenExpired() {        
+        return (Calendar.getInstance().getTimeInMillis() - this.dateCreated.getTimeInMillis()) > 3600000;       
     }
 
 }

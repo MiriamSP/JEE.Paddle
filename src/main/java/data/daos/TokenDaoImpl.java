@@ -17,9 +17,8 @@ public class TokenDaoImpl implements TokenDaoExtended {
     @Override
     public void deleteExpiredTokens() {
         List<Token> lToken = tokenDao.findAll();
-        Calendar dateActual = Calendar.getInstance();
         for (Token token : lToken) {
-            if (token.isTokenExpired(dateActual)) {
+            if (token.isTokenExpired()) {
                 tokenDao.delete(token);
             }
         }  

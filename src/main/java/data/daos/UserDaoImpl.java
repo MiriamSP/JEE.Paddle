@@ -20,9 +20,8 @@ public class UserDaoImpl implements UserDaoExtended {
     @Override
     public User findByValidTokenValue(String tokenValue) {
         Token token = tokenDao.findByTokenValue(tokenValue);
-        Calendar dateActual = Calendar.getInstance();
         if (token != null) {
-            if (!token.isTokenExpired(dateActual)) {
+            if (!token.isTokenExpired()) {
                 User user = userDao.findByTokenValue(tokenValue);
                 return user;
             } else {

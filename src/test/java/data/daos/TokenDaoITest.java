@@ -2,7 +2,6 @@ package data.daos;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
@@ -46,7 +45,7 @@ public class TokenDaoITest {
         Token token = new Token(user);
         tokenDao.saveAndFlush(token);
         Calendar dateAnt = Calendar.getInstance();
-        assertTrue(!token.isTokenExpired(dateAnt));
+        assertTrue(!token.isTokenExpired());
         dateAnt.add(Calendar.MINUTE, -69);
         token.setDateCreated(dateAnt);
         tokenDao.saveAndFlush(token);
