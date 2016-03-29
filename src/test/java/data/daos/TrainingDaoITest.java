@@ -5,6 +5,7 @@ import org.junit.runners.MethodSorters;
 import org.junit.FixMethodOrder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
 
@@ -38,7 +39,7 @@ public class TrainingDaoITest {
 
     @Test
     public void Test0_CreateTraining1() {
-        
+
         Calendar date = Calendar.getInstance();
         date.add(Calendar.DAY_OF_YEAR, 1);
         date.set(Calendar.HOUR_OF_DAY, 9);
@@ -110,7 +111,21 @@ public class TrainingDaoITest {
     }
 
     @Test
-    public void Test6_testAddTrainingPlayer() {
+    public void Test6_ExistTraining() {
+        assertEquals(2, trainingDao.count());
+        Calendar date = Calendar.getInstance();
+        date.add(Calendar.DAY_OF_YEAR, 2);
+        date.set(Calendar.HOUR_OF_DAY, 10);
+        date.set(Calendar.MINUTE, 0);
+        date.set(Calendar.SECOND, 0);
+        date.set(Calendar.MILLISECOND, 0);
+        Court court = courtDao.findOne(2);
+        assertEquals(2, court.getId());
+        assertTrue(trainingDao.existTraining(court.getId(), date));
+    }
+
+    @Test
+    public void Test7_testAddTrainingPlayer() {
         Court court = courtDao.findOne(1);
         assertEquals(1, court.getId());
         Calendar date = Calendar.getInstance();
@@ -127,7 +142,7 @@ public class TrainingDaoITest {
     }
 
     @Test
-    public void Test7_DeleteTrainingPlayer() {
+    public void Test8_DeleteTrainingPlayer() {
         Court court = courtDao.findOne(1);
         assertEquals(1, court.getId());
         Calendar date = Calendar.getInstance();
@@ -145,7 +160,7 @@ public class TrainingDaoITest {
     }
 
     @Test
-    public void Test8_DeleteTraining() {
+    public void Test9_DeleteTraining() {
         assertEquals(2, trainingDao.count());
         Court court = courtDao.findOne(1);
         assertEquals(1, court.getId());

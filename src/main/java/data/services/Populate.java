@@ -57,7 +57,7 @@ public class Populate {
     public void createDefaultTrainer() {
         User trainerDefault = userDao.findByUsernameOrEmail("td");
         if (trainerDefault == null) {
-            User trainer = new User("trainer", "trainer@gmail.com", "123456", new GregorianCalendar(1979, 07, 22));
+            User trainer = new User("trainer", "trainer@gmail.com", "trainer", new GregorianCalendar(1979, 07, 22));
             userDao.save(trainer);
             authorizationDao.save(new Authorization(trainer, Role.TRAINER));
             System.out.println("@@@@@create default trainer");

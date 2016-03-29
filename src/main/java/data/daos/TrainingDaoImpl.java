@@ -116,7 +116,7 @@ public class TrainingDaoImpl implements TrainingDaoExtended {
     @Override
     public boolean existTraining(int courtId, Calendar startDate) {
         Court court = courtDao.findOne(courtId);
-        return trainingDao.findByCourtAndDate(court, startDate) == null;
+        return trainingDao.findByCourtAndDate(court, startDate) != null;
     }
 
 }
