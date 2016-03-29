@@ -59,6 +59,12 @@ public class DaosService {
         for (User user : this.createPlayers(4, 4)) {
             map.put(user.getUsername(), user);
         }
+        
+        for (User userTrainer : this.createTrainers(0, 2)) {
+            map.put(userTrainer.getUsername(), userTrainer);
+            System.out.println("@@@@@@@@@@@@@creacion trainers: " + userTrainer.getUsername());
+        }        
+        
         this.createCourts(1, 4);
         Calendar date = Calendar.getInstance();
         date.add(Calendar.DAY_OF_YEAR, 1);
@@ -66,8 +72,8 @@ public class DaosService {
         date.set(Calendar.MINUTE, 0);
         date.set(Calendar.SECOND, 0);
         date.set(Calendar.MILLISECOND, 0);
-        this.createTraining(courtDao.getOne(1),users[0],date);
-        this.createTraining(courtDao.getOne(2),users[1],date);
+        //this.createTraining(courtDao.getOne(1),users[0],date);
+        //this.createTraining(courtDao.getOne(2),users[1],date);
 
         for (int i = 0; i < 4; i++) {
             date.add(Calendar.HOUR_OF_DAY, 1);
@@ -82,6 +88,16 @@ public class DaosService {
             users[i] = new User("u" + (i + initial), "u" + (i + initial) + "@gmail.com", "p", Calendar.getInstance());
             userDao.save(users[i]);
             authorizationDao.save(new Authorization(users[i], Role.PLAYER));
+        }
+        return users;
+    }
+    
+    public User[] createTrainers(int initial, int size) {
+        User[] users = new User[size];
+        for (int i = 0; i < size; i++) {
+            users[i] = new User("t" + (i + initial), "t" + (i + initial) + "@gmail.com", "p", Calendar.getInstance());
+            userDao.save(users[i]);
+            authorizationDao.save(new Authorization(users[i], Role.TRAINER));
         }
         return users;
     }

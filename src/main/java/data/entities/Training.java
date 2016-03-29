@@ -79,7 +79,6 @@ public class Training {
     }
 
     public boolean setStudent(User student) {
-        // TODO dejar en entity?
         if (!students.contains(student) && numStudents() < 4) {
             this.students.add(student);
             return true;
@@ -89,7 +88,6 @@ public class Training {
     }
 
     public boolean deleteStudent(User student) {
-        // TODO dejar en entity?
         if (!students.contains(student)) {
             return false;
         } else {
@@ -110,7 +108,5 @@ public class Training {
     public String toString() {
         return "Training [id=" + id + ", court=" + court + ", user=" + user + ", students=" + students + ", date=" + date + "]";
     }
-    
-    
 
 }
