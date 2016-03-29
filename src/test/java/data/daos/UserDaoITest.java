@@ -25,7 +25,7 @@ public class UserDaoITest {
 
     @Autowired
     private DaosService daosService;
-    
+
     @Autowired
     private TrainingDao trainingDao;
 
@@ -49,14 +49,5 @@ public class UserDaoITest {
         assertEquals(u2, userDao.findByTokenValue(t2.getValue()));
         assertNull(userDao.findByTokenValue("kk"));
     }
-    
-    @Test
-    public void testRegisterTraining() {
-        User u2 = (User) daosService.getMap().get("u2");
-        assertNotNull(trainingDao.findOne(1));
-        Token t2 = (Token) daosService.getMap().get("tu2");
-        assertEquals(u2, userDao.findByTokenValue(t2.getValue()));
-        assertNull(userDao.findByTokenValue("kk"));
-    }
-    
+
 }
