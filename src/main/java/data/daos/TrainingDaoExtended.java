@@ -14,4 +14,5 @@ public interface TrainingDaoExtended {
     
     boolean deleteTrainingPlayer(int courtId, Calendar startDate, String student);
 
+    boolean existTraining(int courtId, Calendar startDate);
 }

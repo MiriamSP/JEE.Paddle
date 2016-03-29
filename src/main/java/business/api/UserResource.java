@@ -1,12 +1,16 @@
 package business.api;
 
+import java.util.Calendar;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import business.api.exceptions.AlreadyExistUserFieldException;
+import business.api.exceptions.InvalidTrainingException;
 import business.api.exceptions.InvalidUserFieldException;
 import business.controllers.UserController;
 import business.wrapper.UserWrapper;

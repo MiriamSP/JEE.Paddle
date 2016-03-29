@@ -2,6 +2,7 @@ package api;
 
 import static org.junit.Assert.assertEquals;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -14,6 +15,7 @@ import business.wrapper.AvailableTime;
 import business.wrapper.CourtState;
 import business.wrapper.TrainingWrapper;
 import business.wrapper.UserWrapper;
+import business.wrapper.UserWrapperBuilder;
 
 public class TrainingResourceFunctionalTesting {
 
@@ -45,16 +47,30 @@ public class TrainingResourceFunctionalTesting {
     }
     
     @Test
+    public void testCreate() {
+        for (int i = 0; i < 4; i++) {
+            new RestBuilder<Object>(RestService.URL).path(Uris.USERS).body(new UserWrapperBuilder(i).build()).post().build();
+        }
+    }
+    
+    @Test
     public void testTraining() {
-        String token = restService.loginAdmin();
+       
+        String token = restService.loginTrainer();
         Calendar day = Calendar.getInstance();
         day.add(Calendar.DAY_OF_YEAR, 1);
         day.set(Calendar.HOUR_OF_DAY,12);
-        CourtState court = new CourtState(11,true);
-        UserWrapper trainer = new UserWrapper("trainer01", "trainer01@mail", "123456", Calendar.getInstance());
+        String time = new SimpleDateFormat("HH:mm dd-MMM-yyyy ").format(day.getTime());
+        System.out.println("Fecha training: " + time);
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ AQUI 11111");
+        
+        restService.createCourt("3");
+        CourtState court = new CourtState(3,true);
         List<Integer> lStudents = null;
-        TrainingWrapper training = new TrainingWrapper(court.getCourtId(),trainer.getUsername(), lStudents, day); 
+        TrainingWrapper training = new TrainingWrapper(court.getCourtId(),"trainer", lStudents, day); 
         new RestBuilder<Object>(RestService.URL).path(Uris.TRAININGS).basicAuth(token, "").body(training).post().build();
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ AQUI 2222222");
+
         assertEquals(1, 1);
     }
 

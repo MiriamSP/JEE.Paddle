@@ -36,10 +36,9 @@ public class TrainingDaoITest {
     @Autowired
     private CourtDao courtDao;
 
-   
-    
     @Test
-    public void Test0_Init() {
+    public void Test0_CreateTraining1() {
+        
         Calendar date = Calendar.getInstance();
         date.add(Calendar.DAY_OF_YEAR, 1);
         date.set(Calendar.HOUR_OF_DAY, 9);
@@ -94,7 +93,7 @@ public class TrainingDaoITest {
     }
 
     @Test
-    public void Test5_CreateTraining() {
+    public void Test5_CreateTraining2() {
         Calendar date = Calendar.getInstance();
         date.add(Calendar.DAY_OF_YEAR, 2);
         date.set(Calendar.HOUR_OF_DAY, 10);
@@ -109,8 +108,6 @@ public class TrainingDaoITest {
         trainingDao.saveAndFlush(training);
         assertEquals(2, trainingDao.count());
     }
-
-    
 
     @Test
     public void Test6_testAddTrainingPlayer() {
@@ -146,7 +143,7 @@ public class TrainingDaoITest {
         training = trainingDao.findByCourtAndDate(court, date);
         assertEquals(0, training.numStudents());
     }
-    
+
     @Test
     public void Test8_DeleteTraining() {
         assertEquals(2, trainingDao.count());

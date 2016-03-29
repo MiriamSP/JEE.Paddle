@@ -1,10 +1,13 @@
 package business.controllers;
 
+import java.util.Calendar;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import business.wrapper.UserWrapper;
 import data.daos.AuthorizationDao;
+import data.daos.TrainingDao;
 import data.daos.UserDao;
 import data.entities.Authorization;
 import data.entities.Role;
@@ -16,6 +19,8 @@ public class UserController {
     private UserDao userDao;
 
     private AuthorizationDao authorizationDao;
+
+    private TrainingDao trainingDao;
 
     @Autowired
     public void setUserDao(UserDao userDao) {
@@ -38,4 +43,5 @@ public class UserController {
             return false;
         }
     }
+
 }

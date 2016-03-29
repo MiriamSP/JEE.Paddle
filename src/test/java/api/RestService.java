@@ -18,6 +18,13 @@ public class RestService {
                 .post().build();
         return token.getToken();
     }
+    
+    public String loginTrainer() {
+        TokenWrapper token = new RestBuilder<TokenWrapper>(URL).path(Uris.TOKENS).basicAuth("t0", "t0").clazz(TokenWrapper.class)
+                .post().build();
+        return token.getToken();
+    }
+
 
     public String registerAndLoginPlayer() {
         UserWrapper player = new UserWrapperBuilder().build();
@@ -29,6 +36,13 @@ public class RestService {
     
     public void createCourt(String id) {
         new RestBuilder<Object>(URL).path(Uris.COURTS).param("id", id).basicAuth(this.loginAdmin(), "").post().build();
+    }
+    
+    public void createUser(String id) {
+        UserWrapper player = new UserWrapperBuilder().build();
+        System.out.print("@@@@@@@@@@@@@@@@@@@@@user: " + player.getUsername());
+        new RestBuilder<Object>(URL).path(Uris.USERS).body(player).post().build();
+        new RestBuilder<Object>(RestService.URL).path(Uris.USERS).body(new UserWrapperBuilder(0).build()).post().build();
     }
 
 }
