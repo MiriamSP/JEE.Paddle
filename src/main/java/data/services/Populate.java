@@ -60,8 +60,7 @@ public class Populate {
             User trainer = new User("trainer", "trainer@gmail.com", "trainer", new GregorianCalendar(1979, 07, 22));
             userDao.save(trainer);
             authorizationDao.save(new Authorization(trainer, Role.TRAINER));
-            System.out.println("@@@@@create default trainer");
-        }      
+        }
     }
 
 }

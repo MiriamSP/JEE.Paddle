@@ -34,22 +34,15 @@ public class TrainingResource {
     @RequestMapping(method = RequestMethod.POST)
     public void createTraining(@AuthenticationPrincipal User activeUser, @RequestBody TrainingWrapper trainingWrapper)
             throws InvalidTrainingException, AlreadyExistTrainingException {
-        System.out.println("@@@@@@ TRAINING RESOURCE - User Autenticado: " + activeUser.getUsername());
-        System.out.println("@@@@@@ TRAINING RESOURCE - num DAOS: " + trainingController.getTrainingDao().count());
-        System.out.println("@@@@@@ TRAINING RESOURCE - trainingWrapper " + trainingWrapper.getCourtId() + " -  trainer: "
-                + trainingWrapper.getUsername() + " - day: " + trainingWrapper.getDate());
 
         if (this.trainingController.exist(trainingWrapper.getCourtId(), trainingWrapper.getDate())) {
-            System.out.println("@@@@@@ TRAINING RESOURCE NOK - EXISTE");
             throw new AlreadyExistTrainingException();
         }
 
         if (!this.trainingController.createTraining(trainingWrapper.getCourtId(), trainingWrapper.getUsername(),
                 trainingWrapper.getDate())) {
-            System.out.println("@@@@@@ TRAINING RESOURCE NOK");
             throw new InvalidTrainingException();
         }
-        System.out.println("@@@@@@ TRAINING RESOURCE OK");
     }
 
     @RequestMapping(value = Uris.ID, method = RequestMethod.DELETE)

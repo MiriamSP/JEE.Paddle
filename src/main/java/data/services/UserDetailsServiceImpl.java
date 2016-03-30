@@ -29,9 +29,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserDao userDao;
 
     @Autowired
-    private TokenDao tokenDao;
-
-    @Autowired
     private AuthorizationDao authorizationDao;
 
     @Override
