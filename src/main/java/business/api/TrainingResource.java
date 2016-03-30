@@ -17,7 +17,6 @@ import business.api.exceptions.AlreadyExistTrainingException;
 import business.api.exceptions.InvalidTrainingException;
 import business.api.exceptions.NotFoundTrainingIdException;
 import business.controllers.TrainingController;
-import business.wrapper.AvailableTime;
 import business.wrapper.TrainingWrapper;
 
 @RestController
@@ -52,9 +51,10 @@ public class TrainingResource {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = Uris.SHOW, method = RequestMethod.GET)
     public List<TrainingWrapper> showTrainings() {
         return trainingController.showTrainings();
+        
     }
 
     @RequestMapping(method = RequestMethod.PUT)

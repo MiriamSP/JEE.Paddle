@@ -50,7 +50,7 @@ public class TrainingController {
         List<TrainingWrapper> lTrainingWrapper = new ArrayList<>();
         for (Training training : trainingDao.findAll()) {
             lTrainingWrapper.add(new TrainingWrapper(training));
-        }
+        }       
         return lTrainingWrapper;
     }
 
