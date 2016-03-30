@@ -17,6 +17,7 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import business.api.Uris;
 import business.wrapper.CourtState;
+import business.wrapper.TokenWrapper;
 import business.wrapper.TrainingWrapper;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)

@@ -1,6 +1,5 @@
 package business.api;
 
-import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import business.api.exceptions.AlreadyExistTrainingException;
@@ -74,10 +72,15 @@ public class TrainingResource {
         }
     }
 
-    @RequestMapping(method = RequestMethod.DELETE)
-    public void deleteTrainingPlayer(@RequestParam(required = true) int courtId, Calendar date, String student)
-            throws InvalidTrainingException {
-        if (!this.trainingController.deleteTrainingPlayer(courtId, date, student)) {
+    @RequestMapping(value = Uris.REGISTER, method = RequestMethod.DELETE)
+    public void deleteTrainingPlayer(@AuthenticationPrincipal User activeUser, @RequestBody TrainingWrapper trainingWrapper)
+            throws InvalidTrainingException, NotFoundTrainingIdException {
+
+        if (!this.trainingController.exist(trainingWrapper.getCourtId(), trainingWrapper.getDate())) {
+            throw new NotFoundTrainingIdException();
+        }
+        if (!this.trainingController.deleteTrainingPlayer(trainingWrapper.getCourtId(), trainingWrapper.getDate(),
+                activeUser.getUsername())) {
             throw new InvalidTrainingException();
         }
     }
