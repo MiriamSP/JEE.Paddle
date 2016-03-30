@@ -38,10 +38,10 @@ public class DataService {
     public void deleteAllExceptAdmin(){
         reserveDao.deleteAll();
         authorizationDao.deleteAll();
+        trainingDao.deleteAll();
         tokenDao.deleteAll();
         courtDao.deleteAll();
-        userDao.deleteAll();
-        trainingDao.deleteAll();
+        userDao.deleteAll();      
         populate.createDefaultAdmin();
         populate.createDefaultTrainer();
 
