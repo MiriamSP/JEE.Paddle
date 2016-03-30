@@ -16,7 +16,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import data.daos.AuthorizationDao;
-import data.daos.TokenDao;
 import data.daos.UserDao;
 import data.entities.Role;
 import data.entities.User;

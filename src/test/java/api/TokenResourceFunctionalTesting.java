@@ -6,6 +6,8 @@ import org.apache.logging.log4j.LogManager;
 import org.junit.After;
 import org.junit.Test;
 
+import business.api.Uris;
+
 public class TokenResourceFunctionalTesting {
 
     @Test
@@ -18,7 +20,7 @@ public class TokenResourceFunctionalTesting {
     @Test
     public void testDeleteExpiredToken() {
         String token = new RestService().registerAndLoginPlayer();
-        assertTrue(token.length() > 20);
+        new RestBuilder<Object>(RestService.URL).path(Uris.TOKENS).basicAuth(token, "").body(token).delete().build();
         LogManager.getLogger(this.getClass()).info("testExpiredToken (token:" + token + ")");
     }
     

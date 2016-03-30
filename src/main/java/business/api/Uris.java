@@ -23,6 +23,9 @@ public class Uris {
     public static final String TRAININGS = "/trainings";
     
     public static final String SHOW = "/show";
+    
+    public static final String REGISTER = "/register";
+
 
 
 }

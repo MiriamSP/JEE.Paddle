@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import business.api.exceptions.AlreadyExistTrainingException;
 import business.api.exceptions.InvalidTrainingException;
+import business.api.exceptions.MaxStudentsInTrainingException;
 import business.api.exceptions.NotFoundTrainingIdException;
 import business.controllers.TrainingController;
 import business.wrapper.TrainingWrapper;
@@ -54,13 +55,21 @@ public class TrainingResource {
     @RequestMapping(value = Uris.SHOW, method = RequestMethod.GET)
     public List<TrainingWrapper> showTrainings() {
         return trainingController.showTrainings();
-        
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public void registerTraining(@RequestParam(required = true) int courtId, Calendar date, String student)
-            throws InvalidTrainingException {
-        if (!this.trainingController.registerTraining(courtId, date, student)) {
+    @RequestMapping(value = Uris.REGISTER, method = RequestMethod.PUT)
+    public void registerTraining(@AuthenticationPrincipal User activeUser, @RequestBody TrainingWrapper trainingWrapper)
+            throws InvalidTrainingException, NotFoundTrainingIdException, MaxStudentsInTrainingException {
+
+        if (!this.trainingController.exist(trainingWrapper.getCourtId(), trainingWrapper.getDate())) {
+            throw new NotFoundTrainingIdException();
+        }
+
+        if (!this.trainingController.isVacancyInTraining(trainingWrapper.getCourtId(), trainingWrapper.getDate())) {
+            throw new MaxStudentsInTrainingException();
+        }
+
+        if (!this.trainingController.registerTraining(trainingWrapper.getCourtId(), trainingWrapper.getDate(), activeUser.getUsername())) {
             throw new InvalidTrainingException();
         }
     }

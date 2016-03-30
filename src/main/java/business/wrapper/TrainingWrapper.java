@@ -12,7 +12,7 @@ public class TrainingWrapper {
 
     private String username;
 
-    private List<Integer> students;
+    private List<String> students;
 
     private Calendar date;
 
@@ -20,7 +20,7 @@ public class TrainingWrapper {
 
     }
 
-    public TrainingWrapper(int courtId, String username, List<Integer> students, Calendar date) {
+    public TrainingWrapper(int courtId, String username, List<String> students, Calendar date) {
         super();
         this.courtId = courtId;
         this.username = username;
@@ -32,7 +32,7 @@ public class TrainingWrapper {
         this.setCourtId(training.getCourt().getId());
         this.setUsername(training.getUser().getUsername());
         for (User user : training.getStudents()) {
-            this.students.add(user.getId());
+            this.students.add(user.getUsername());
         }
         this.date = training.getDate();
     }
@@ -53,22 +53,22 @@ public class TrainingWrapper {
         this.username = username;
     }
 
-    public List<Integer> getStudents() {
+    public List<String> getStudents() {
         return students;
     }
 
-    public void setStudents(List<Integer> students) {
+    public void setStudents(List<String> students) {
         this.students = students;
     }
 
-    public boolean setOneStudent(Integer studentId) {
+    public boolean setOneStudent(String student) {
         if (this.students.size() < 4) {
-            students.add(studentId);
+            students.add(student);
             return true;
         } else {
             return false;
         }
-    }
+    }      
 
     public Calendar getDate() {
         return date;

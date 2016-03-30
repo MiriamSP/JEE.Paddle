@@ -21,4 +21,6 @@ public interface TrainingDao extends JpaRepository<Training, Integer> , Training
     
     List<Training> findByDateBetween(Calendar date1, Calendar date2);
 
+   
+
 }

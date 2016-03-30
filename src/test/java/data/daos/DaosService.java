@@ -37,7 +37,7 @@ public class DaosService {
 
     @Autowired
     private ReserveDao reserveDao;
-    
+
     @Autowired
     private TrainingDao trainingDao;
 
@@ -59,12 +59,11 @@ public class DaosService {
         for (User user : this.createPlayers(4, 4)) {
             map.put(user.getUsername(), user);
         }
-        
+
         for (User userTrainer : this.createTrainers(0, 2)) {
             map.put(userTrainer.getUsername(), userTrainer);
-            System.out.println("@@@@@@@@@@@@@creacion trainers: " + userTrainer.getUsername());
-        }        
-        
+        }
+
         this.createCourts(1, 4);
         Calendar date = Calendar.getInstance();
         date.add(Calendar.DAY_OF_YEAR, 1);
@@ -72,14 +71,12 @@ public class DaosService {
         date.set(Calendar.MINUTE, 0);
         date.set(Calendar.SECOND, 0);
         date.set(Calendar.MILLISECOND, 0);
-        //this.createTraining(courtDao.getOne(1),users[0],date);
-        //this.createTraining(courtDao.getOne(2),users[1],date);
 
         for (int i = 0; i < 4; i++) {
             date.add(Calendar.HOUR_OF_DAY, 1);
-            reserveDao.save(new Reserve(courtDao.findOne(i+1), users[i], date));
+            reserveDao.save(new Reserve(courtDao.findOne(i + 1), users[i], date));
         }
-        
+
     }
 
     public User[] createPlayers(int initial, int size) {
@@ -91,7 +88,7 @@ public class DaosService {
         }
         return users;
     }
-    
+
     public User[] createTrainers(int initial, int size) {
         User[] users = new User[size];
         for (int i = 0; i < size; i++) {
@@ -118,10 +115,9 @@ public class DaosService {
             courtDao.save(new Court(id + initial));
         }
     }
-    
+
     public void createTraining(Court court, User trainer, Calendar startDate) {
-        Training training = new Training (court,trainer,startDate);
-        //training.setStudents(students);
+        Training training = new Training(court, trainer, startDate);
         trainingDao.save(training);
     }
 

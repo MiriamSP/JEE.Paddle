@@ -4,6 +4,7 @@ import org.junit.runners.MethodSorters;
 
 import org.junit.FixMethodOrder;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -36,7 +37,7 @@ public class TrainingDaoITest {
     private CourtDao courtDao;
 
     @Test
-    public void Test0_CreateTraining1() {
+    public void Test00_CreateTraining1() {
 
         Calendar date = Calendar.getInstance();
         date.add(Calendar.DAY_OF_YEAR, 1);
@@ -54,19 +55,19 @@ public class TrainingDaoITest {
     }
 
     @Test
-    public void Test1_FindAnyTraining() {
+    public void Test01_FindAnyTraining() {
         assertNotNull(trainingDao.findOne(1));
     }
 
     @Test
-    public void Test2_FindByUser() {
+    public void Test02_FindByUser() {
         User user = userDao.findByUsernameOrEmail("t0");
         assertEquals("t0", user.getUsername());
         assertNotNull(trainingDao.findByUser(user));
     }
 
     @Test
-    public void Test3_FindByUserAndDate() {
+    public void Test03_FindByUserAndDate() {
         User user = userDao.findByUsernameOrEmail("t0");
         assertEquals("t0", user.getUsername());
         Calendar date = Calendar.getInstance();
@@ -79,7 +80,7 @@ public class TrainingDaoITest {
     }
 
     @Test
-    public void Test4_FindByCourtAndDate() {
+    public void Test04_FindByCourtAndDate() {
         Court court = courtDao.findOne(1);
         assertEquals(1, court.getId());
         Calendar date = Calendar.getInstance();
@@ -92,7 +93,7 @@ public class TrainingDaoITest {
     }
 
     @Test
-    public void Test5_CreateTraining2() {
+    public void Test05_CreateTraining2() {
         Calendar date = Calendar.getInstance();
         date.add(Calendar.DAY_OF_YEAR, 2);
         date.set(Calendar.HOUR_OF_DAY, 10);
@@ -109,7 +110,7 @@ public class TrainingDaoITest {
     }
 
     @Test
-    public void Test6_ExistTraining() {
+    public void Test06_ExistTraining() {
         assertEquals(2, trainingDao.count());
         Calendar date = Calendar.getInstance();
         date.add(Calendar.DAY_OF_YEAR, 2);
@@ -123,7 +124,7 @@ public class TrainingDaoITest {
     }
 
     @Test
-    public void Test7_testAddTrainingPlayer() {
+    public void Test07_testAddTrainingPlayer() {
         Court court = courtDao.findOne(1);
         assertEquals(1, court.getId());
         Calendar date = Calendar.getInstance();
@@ -138,9 +139,29 @@ public class TrainingDaoITest {
         Training training = trainingDao.findByCourtAndDate(court, date);
         assertEquals(1, training.numStudents());
     }
+    
+    @Test
+    public void Test08_testIsVacancyInTraining() {
+        Court court = courtDao.findOne(1);
+        Calendar date = Calendar.getInstance();
+        date.add(Calendar.DAY_OF_YEAR, 1);
+        date.set(Calendar.HOUR_OF_DAY, 9);
+        date.set(Calendar.MINUTE, 0);
+        date.set(Calendar.SECOND, 0);
+        date.set(Calendar.MILLISECOND, 0);
+        String student = "u0";
+        int courtId = court.getId();
+        trainingDao.addTrainingPlayer(courtId, date, student);
+        assertTrue(trainingDao.isVacancyInTraining(courtId, date));
+        for (int i = 1; i < 4; i++) {
+            trainingDao.addTrainingPlayer(courtId, date, "u"+i);
+        }
+        assertFalse(trainingDao.isVacancyInTraining(courtId, date));        
+    }
+    
 
     @Test
-    public void Test8_DeleteTrainingPlayer() {
+    public void Test09_DeleteTrainingPlayer() {
         Court court = courtDao.findOne(1);
         assertEquals(1, court.getId());
         Calendar date = Calendar.getInstance();
@@ -154,11 +175,11 @@ public class TrainingDaoITest {
         int courtId = court.getId();
         trainingDao.deleteTrainingPlayer(courtId, date, student);
         training = trainingDao.findByCourtAndDate(court, date);
-        assertEquals(0, training.numStudents());
+        assertEquals(3, training.numStudents());
     }
 
     @Test
-    public void Test9_DeleteTraining() {
+    public void Test10_DeleteTraining() {
         assertEquals(2, trainingDao.count());
         Court court = courtDao.findOne(1);
         assertEquals(1, court.getId());

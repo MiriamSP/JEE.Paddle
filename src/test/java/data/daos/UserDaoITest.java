@@ -1,7 +1,6 @@
 package data.daos;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -26,10 +25,7 @@ public class UserDaoITest {
     @Autowired
     private DaosService daosService;
 
-    @Autowired
-    private TrainingDao trainingDao;
-
-    @Test
+     @Test
     public void testCreate() {
         assertTrue(userDao.count() >= 8);
     }
